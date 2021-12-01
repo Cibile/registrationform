@@ -19,4 +19,12 @@ class EmailTest {
         Email email = new Email(testEmail);
         assertEquals(testEmail, email.getEmail());
     }
+
+    @Test
+    void checkIfEmailContainsSymbol(){
+        String testEmail = "higoogle.com";
+        Email email = new Email(testEmail);
+        assertNotEquals(testEmail, email.getEmail());
+        assertEquals("Invalid email", email.getEmail());
+    }
 }
