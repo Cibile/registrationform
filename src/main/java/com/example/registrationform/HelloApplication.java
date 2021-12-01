@@ -64,7 +64,8 @@ public class HelloApplication extends Application {
             @Override
             public void handle(ActionEvent e) {
                 actiontarget.setFill(Color.DARKCYAN);
-                actiontarget.setText("email: " + userTextField.getText()+ " password: " + pwBox.getText());
+                Email userEmail = new Email(userTextField.getText());
+                actiontarget.setText("email: " + userEmail.getEmail() + " password: " + pwBox.getText());
             }
         });
 
