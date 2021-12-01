@@ -19,10 +19,9 @@ public class Email {
     }
 
     public boolean checkExactlyOneAtSymbol(String email){
-        String regex = "^[a-zA-Z0-9]+@[a-zA-Z0-9]+$";
+        String regex = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(email);
-        System.out.println(matcher.matches());
         return matcher.matches();
     }
 }
