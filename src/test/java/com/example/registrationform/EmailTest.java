@@ -21,8 +21,16 @@ class EmailTest {
     }
 
     @Test
-    void checkIfEmailContainsSymbol(){
+    void checkIfEmailContainsAtSymbol(){
         String testEmail = "higoogle.com";
+        Email email = new Email(testEmail);
+        assertNotEquals(testEmail, email.getEmail());
+        assertEquals("Invalid email", email.getEmail());
+    }
+
+    @Test
+    void checkIfEmailContainsExactlyOneAtSymbol(){
+        String testEmail = "hi@@google.com";
         Email email = new Email(testEmail);
         assertNotEquals(testEmail, email.getEmail());
         assertEquals("Invalid email", email.getEmail());
