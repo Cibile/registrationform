@@ -1,9 +1,6 @@
 package com.example.registrationform;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -13,21 +10,17 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 public class HelloApplication extends Application {
     @Override
-    public void start(Stage stage) throws IOException {
-        // FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        // Scene scene = new Scene(fxmlLoader.load(), 420, 340);
+    public void start(Stage stage){
         stage.setTitle("Registration Form");
-        //stage.setScene(scene);
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(40);
@@ -41,31 +34,33 @@ public class HelloApplication extends Application {
         Label userName = new Label("Email Address: ");
         grid.add(userName, 0, 1);
 
-        TextField userTextField = new TextField();
-        grid.add(userTextField, 1, 1);
+        TextField userEmailField = new TextField();
+        grid.add(userEmailField, 1, 1);
 
         Label pw = new Label("Password: ");
         grid.add(pw, 0, 2);
 
-        PasswordField pwBox = new PasswordField();
-        grid.add(pwBox, 1, 2);
+        PasswordField userPasswordField = new PasswordField();
+        grid.add(userPasswordField, 1, 2);
 
-        Button btn = new Button("Sign in");
-        HBox hbBtn = new HBox(10);
-        hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
-        hbBtn.getChildren().add(btn);
-        grid.add(hbBtn, 1, 4);
+        Button button = new Button("Sign in");
+        HBox hBox = new HBox(10);
+        hBox.setAlignment(Pos.BOTTOM_RIGHT);
+        hBox.getChildren().add(button);
+        grid.add(hBox, 1, 4);
 
         final Text actiontarget = new Text();
         grid.add(actiontarget, 1, 6);
 
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent e) {
-                actiontarget.setFill(Color.DARKCYAN);
-                Email userEmail = new Email(userTextField.getText());
-                actiontarget.setText("email: " + userEmail.getEmail() + " password: " + pwBox.getText());
+        button.setOnAction(e -> {
+            Email userEmail = new Email(userEmailField.getText());
+            Password userPassword = new Password((userPasswordField.getText()));
+            actiontarget.setFill(Color.DARKCYAN);
+            actiontarget.setText("email: " + userEmail.getEmail() + " password: " + userPassword.getPassword());
+            if (userEmail.getEmail().equals("Invalid email") || userPassword.getPassword().equals("Invalid password")) {
+                showUnsuccessfulLoginScreen();
+            } else {
+                showSuccessfulLoginScreen();
             }
         });
 
@@ -73,6 +68,42 @@ public class HelloApplication extends Application {
         stage.setScene(scene);
         stage.show();
 
+    }
+
+    public void showSuccessfulLoginScreen() {
+        Stage stage = new Stage();
+
+        VBox vBox = new VBox();
+        vBox.setPadding(new Insets(10, 10, 10, 10));
+
+        vBox.setAlignment(Pos.CENTER);
+
+        Label label = new Label("Login Successful");
+        label.setFont(Font.font("Roboto", FontWeight.NORMAL, 20));
+
+        vBox.getChildren().add(label);
+
+        Scene scene = new Scene(vBox, 250, 150);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void showUnsuccessfulLoginScreen() {
+        Stage stage = new Stage();
+
+        VBox vBox = new VBox();
+        vBox.setPadding(new Insets(10, 10, 10, 10));
+
+        vBox.setAlignment(Pos.CENTER);
+
+        Label label = new Label("Login Unsuccessful");
+        label.setFont(Font.font("Roboto", FontWeight.NORMAL, 20));
+
+        vBox.getChildren().add(label);
+
+        Scene scene = new Scene(vBox, 250, 150);
+        stage.setScene(scene);
+        stage.show();
     }
 
     public static void main(String[] args) {
