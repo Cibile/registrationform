@@ -8,7 +8,8 @@ public class Password {
     private final int MIN_PASSWORD_LENGTH = 7;
 
     public Password(String password){
-        if(password.length() >= MIN_PASSWORD_LENGTH && checkAtLeastOneLetter(password) && checkAtLeastOneDigit(password)){
+        if(password.length() >= MIN_PASSWORD_LENGTH && checkAtLeastOneLetter(password) && checkAtLeastOneDigit(password)
+        && checkAtLeastOneSpecialChar(password)){
             this.password = password;
         }else {
             this.password = "Invalid password";
@@ -28,6 +29,13 @@ public class Password {
 
     public boolean checkAtLeastOneDigit(String password){
         String regex = ".*[0-9].*";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(password);
+        return matcher.matches();
+    }
+
+    public boolean checkAtLeastOneSpecialChar(String password){
+        String regex = ".*[*^&@!.].*";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(password);
         return matcher.matches();
