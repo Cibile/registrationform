@@ -5,9 +5,9 @@ import java.util.regex.Pattern;
 
 public class Password {
     private final String password;
-    private final int MIN_PASSWORD_LENGTH = 7;
 
     public Password(String password){
+        final int MIN_PASSWORD_LENGTH = 7;
         if(password.length() >= MIN_PASSWORD_LENGTH && checkAtLeastOneLetter(password) && checkAtLeastOneDigit(password)
         && checkAtLeastOneSpecialChar(password)){
             this.password = password;
