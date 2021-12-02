@@ -35,8 +35,22 @@ class PasswordTest {
     }
 
     @Test
-    void PasswordContainsLetter(){
+    void passwordContainsLetter(){
         String testPassword = "1234567a";
+        Password password = new Password(testPassword);
+        assertEquals(testPassword, password.getPassword());
+    }
+
+    @Test
+    void checkPasswordContainsDigit(){
+        String testPassword = "abcdefghiJK";
+        Password password = new Password(testPassword);
+        assertEquals("Invalid password", password.getPassword());
+    }
+
+    @Test
+    void passwordContainsDigit(){
+        String testPassword = "abcdefghiJK1";
         Password password = new Password(testPassword);
         assertEquals(testPassword, password.getPassword());
     }
