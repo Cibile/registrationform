@@ -9,7 +9,7 @@ public class Password {
     public Password(String password){
         final int MIN_PASSWORD_LENGTH = 7;
         if(password.length() >= MIN_PASSWORD_LENGTH && checkAtLeastOneLetter(password) && checkAtLeastOneDigit(password)
-        && checkAtLeastOneSpecialChar(password) && checkInvalidCharacters(password)){
+        && checkAtLeastOneSpecialChar(password)){
             this.password = password;
         }else {
             this.password = "Invalid password";
@@ -39,12 +39,5 @@ public class Password {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(password);
         return matcher.matches();
-    }
-
-    public boolean checkInvalidCharacters(String password){
-        String regex = ".*[%'~#?><+=_(){}£|/:;,$¬`].*";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher((password));
-        return !matcher.matches();
     }
 }
