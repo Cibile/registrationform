@@ -3,6 +3,8 @@ package com.example.registrationform;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -33,6 +35,15 @@ class EmailTest {
         String testEmail = "hi@@google.com";
         Email email = new Email(testEmail);
         assertNotEquals(testEmail, email.getEmail());
+        assertEquals("Invalid email", email.getEmail());
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = { "hi#@gmail.com", "jo£hn$$koln@gmail.com", "l*c6^l@mail.com","abc#def@mail.com", "abc)(.def@mail.com" })
+    @DisplayName("Test emails with invalid symbols")
+    void checkIfEmailContainsInvalidCharacters(String argument) {
+        Email email = new Email(argument);
+        assertNotEquals(argument, email.getEmail());
         assertEquals("Invalid email", email.getEmail());
     }
 }
