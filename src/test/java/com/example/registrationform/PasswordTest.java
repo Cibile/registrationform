@@ -72,7 +72,7 @@ class PasswordTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"valid.pass123", "Val1DP@$$", "P@$$^w0rd","Valid123^&@", "!pf$.v^@1r6!" })
+    @ValueSource(strings = {"valid.pass123", "Val1DP@&&", "P@!!^w0rd","Valid123^&@", "!pf*.v^@1r6!" })
     @DisplayName("Tests of valid passwords to make sure they pass")
     void checkValidPasswords(String argument){
         Password password = new Password(argument);
@@ -85,6 +85,13 @@ class PasswordTest {
     void checkInvalidPasswords(String argument){
         Password password = new Password(argument);
         assertNotEquals(argument, password.getPassword());
+        assertEquals("Invalid password", password.getPassword());
+    }
+
+    @Test
+    void passwordContainsInvalidCharacters(){
+        String testPassword = "invalidsymbols11@%£#~ ~>";
+        Password password = new Password(testPassword);
         assertEquals("Invalid password", password.getPassword());
     }
 }
