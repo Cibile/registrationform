@@ -46,4 +46,13 @@ class EmailTest {
         assertNotEquals(argument, email.getEmail());
         assertEquals("Invalid email", email.getEmail());
     }
+
+    @ParameterizedTest
+    @ValueSource( strings = {"abcdf-@gmail.com", "abc..def@gmail.com", ".abcdf@gmail.com", "abc#def@gmail.com"})
+    @DisplayName("Test emails with invalid prefixes.")
+    void checkIfEmailInvalidPrefix(String argument){
+        Email email = new Email(argument);
+        assertNotEquals(argument, email.getEmail());
+        assertEquals("Invalid email", email.getEmail());
+    }
 }
