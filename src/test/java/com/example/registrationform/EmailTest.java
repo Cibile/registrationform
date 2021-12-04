@@ -55,4 +55,12 @@ class EmailTest {
         assertNotEquals(argument, email.getEmail());
         assertEquals("Invalid email", email.getEmail());
     }
+
+    @ParameterizedTest
+    @ValueSource( strings = {"abc.def@gmail.c", "abc.def@gmail#mail.com", "abc.def@gmail", "abc.def@gmail..com"})
+    @DisplayName("Test emails with invalid domain.")
+    void checkIfEmailInvalidDomain(String argument) {
+        Email email = new Email(argument);
+        assertNotEquals(argument, email.getEmail());
+        assertEquals("Invalid email", email.getEmail());    }
 }
