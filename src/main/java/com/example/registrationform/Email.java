@@ -7,7 +7,7 @@ public class Email {
     private final String email;
 
     public Email(final String email){
-        if (checkExactlyOneAtSymbol(email)){
+        if (checkExactlyOneAtSymbol(email) && checkEmailPrefix(email)){
             this.email = email;
         }else{
             this.email = "Invalid email";
@@ -23,5 +23,15 @@ public class Email {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
+    }
+
+    public boolean checkEmailPrefix(String email){
+        String prefix = email.substring(0,email.lastIndexOf("@"));
+        String regexStartsWith = "^[+._-]";
+        String regexEndsWith = "[+._-]$";
+        String regexMultipleChars = "[+._-]{2,}";
+        return !Pattern.compile(regexStartsWith).matcher(prefix).find() &&
+                !Pattern.compile(regexEndsWith).matcher(prefix).find() &&
+                !Pattern.compile(regexMultipleChars).matcher(prefix).find();
     }
 }
