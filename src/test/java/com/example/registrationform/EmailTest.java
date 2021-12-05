@@ -48,7 +48,7 @@ class EmailTest {
     }
 
     @ParameterizedTest
-    @ValueSource( strings = {"abcdf-@gmail.com", "abc..def@gmail.com", ".abcdf@gmail.com", "abc#def@gmail.com"})
+    @ValueSource( strings = {"abcdef-@gmail.com", "abc..def@gmail.com", ".abcdef@gmail.com", "abc#def@gmail.com"})
     @DisplayName("Test emails with invalid prefixes.")
     void checkIfEmailInvalidPrefix(String argument){
         Email email = new Email(argument);
@@ -62,5 +62,22 @@ class EmailTest {
     void checkIfEmailInvalidDomain(String argument) {
         Email email = new Email(argument);
         assertNotEquals(argument, email.getEmail());
-        assertEquals("Invalid email", email.getEmail());    }
+        assertEquals("Invalid email", email.getEmail());
+    }
+
+    @ParameterizedTest
+    @ValueSource( strings = {"abc-def@gmail.com", "abc.def@gmail.com", "abcdef@gmail.com", "abc_def@gmail.com"})
+    @DisplayName("Test emails with valid prefixes.")
+    void checkIfEmailValidPrefix(String argument){
+        Email email = new Email(argument);
+        assertEquals(argument, email.getEmail());
+    }
+
+    @ParameterizedTest
+    @ValueSource( strings = {"abc.def@gmail.co", "abc.def@mail-gmail.com", "abc.def@gmail.co.uk", "abc.def@gmail.org"})
+    @DisplayName("Test emails with valid domains.")
+    void checkIfEmailValidDomain(String argument){
+        Email email = new Email(argument);
+        assertEquals(argument, email.getEmail());
+    }
 }
