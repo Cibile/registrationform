@@ -7,7 +7,7 @@ public class Email {
     private final String email;
 
     public Email(final String email){
-        if (checkExactlyOneAtSymbol(email) && checkEmailPrefix(email)){
+        if (checkExactlyOneAtSymbol(email) && checkEmailPrefix(email) && checkEmailDomain(email)){
             this.email = email;
         }else{
             this.email = "Invalid email";
@@ -33,5 +33,16 @@ public class Email {
         return !Pattern.compile(regexStartsWith).matcher(prefix).find() &&
                 !Pattern.compile(regexEndsWith).matcher(prefix).find() &&
                 !Pattern.compile(regexMultipleChars).matcher(prefix).find();
+    }
+
+    public boolean checkEmailDomain(String email){
+        int length = email.length();
+        String domain = email.substring(email.lastIndexOf("@")+1, length);
+        String regexEndsWith = "[a-zA-Z]{2,}$";
+        String regexHasDot = ".*[.].*";
+        String regexMultipleDots = "[.]{2,}";
+        return Pattern.compile(regexEndsWith).matcher(domain).find() &&
+                Pattern.compile(regexHasDot).matcher(domain).find() &&
+                !Pattern.compile(regexMultipleDots).matcher(domain).find();
     }
 }
