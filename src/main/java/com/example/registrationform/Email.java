@@ -40,7 +40,7 @@ public class Email {
         String domain = email.substring(email.lastIndexOf("@")+1, length);
         String regexEndsWith = "[a-zA-Z]{2,}$";
         String regexHasDot = ".*[.].*";
-        String regexMultipleDots = "[.]{2,}";
+        String regexMultipleDots = "[-.]{2,}";
         return Pattern.compile(regexEndsWith).matcher(domain).find() &&
                 Pattern.compile(regexHasDot).matcher(domain).find() &&
                 !Pattern.compile(regexMultipleDots).matcher(domain).find();
